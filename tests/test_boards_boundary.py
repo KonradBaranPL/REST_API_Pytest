@@ -20,7 +20,7 @@ def test_create_board_boundary_name_length(boards_client, name_length, expected_
     test_name = "A" * name_length
     response = boards_client.create_board(test_name)
     assert response.status_code == expected_status, (
-        f"Expexted status code {expected_status} when creating a board, got {response.status_code}"
+        f"Expected status code {expected_status} when creating a board, got {response.status_code}"
     )
     if response.status_code == 200:
         board_id = response.json()["id"]
