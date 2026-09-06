@@ -9,7 +9,7 @@ import pytest
 
 @pytest.mark.parametrize("name_length, expected_status",
         [
-            pytest.param(0, 400, id="len=0"),  # dodawć id w parametrach, czy niekoniecznie?
+            pytest.param(0, 400, id="len=0"),
             (1, 200),
             (16384, 200),
             (16385, 400),
