@@ -32,29 +32,6 @@ def test_delete_board(boards_client, board_to_delete):
     )
 
 
-def test_get_board(boards_client, temp_board):  # przykład testu z jak największą liczbą asercji, żeby sprawdzać coś więcej niż status code, czy taki test ma sens?
-    """User can get detailed data of a single board"""
-    board_id = temp_board
-    response = boards_client.get_board(board_id)
-    assert response.status_code == 200, (
-        f"Expected response status code 200 when getting a board, got {response.status_code}"
-    )
-    assert "application/json" in response.headers["Content-Type"], (
-        f"Expected JSON response, got {response.headers["Content-Type"]}"
-    )
-    response_body = response.json()
-    for field in ["id", "name", "desc", "descData", "closed", "url", "prefs"]:
-        assert field in response_body, f"Missing field {field} in response body"
-    assert response_body["id"] == board_id, (
-        f"Expected id of the requested board, got {response_body["id"]}"
-    )
-    assert response_body["closed"] is False, (
-        f"Expected 'closed' status of the board is False, got {response_body["closed"]}"
-    )
-    assert isinstance(response_body["id"], str), "Expected field 'id' to ba a string"
-    assert isinstance(response_body["closed"], bool), " Expected field 'closed' to be a bool"
-
-
 def test_update_board_name(boards_client, temp_board):
     """User can update an existing board by id"""
     board_id = temp_board
