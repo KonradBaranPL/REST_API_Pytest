@@ -14,7 +14,7 @@ import pytest
          "aB12aB12aB12aB12aB12aB12",
         ],
 )
-def test_get_non_existent_board_returns_404(non_existent_id, boards_client):  # dwa przypadki są failed, czy powinienem wstawiać "expected code" dla każdego przypadku tak, żeby wszystki przypadki były passed?
+def test_get_non_existent_board_returns_404(non_existent_id, boards_client): 
     """
     Verifies that getting a board with valid-format but non-existent id
     returns status code 404
@@ -22,10 +22,9 @@ def test_get_non_existent_board_returns_404(non_existent_id, boards_client):  # 
     response = boards_client.get_board(non_existent_id)
     assert response.status_code == 404, (
         f"Expected status code 404, got {response.status_code}"
-    )  # czy komunikaty w asercjach powinny być bardziej opisowe, tak jak w testach pozytywnych, czy lepsze są skrócone tak jak tutaj
+    )  
 
 
-# nie potrafiłem usunąć token z metody get w klasie BaseClient, dlatego test używa z get z biblioteji requests
 def test_get_board_with_missing_token_returns_401(boards_client, temp_board):
     """
     Verifies that getting a board without api token in params
@@ -41,7 +40,6 @@ def test_get_board_with_missing_token_returns_401(boards_client, temp_board):
     )
 
 
-# parametryzacja w mojej oryginalnej wersji, zostawiłem do porównania
 @pytest.mark.parametrize(
         "board_id",
         [
@@ -74,7 +72,6 @@ def test_get_board_incorrect_id_format(board_id, boards_client):
     )
 
 
-# parametryzacja poprawiona wg. Claude
 @pytest.mark.parametrize(
         "board_id",
         [
@@ -95,7 +92,7 @@ def test_get_board_incorrect_id_format_2(board_id, boards_client):
     )
 
 
-def test_create_board_with_empty_name(boards_client):  # czy ten test to nie to samo co test w boundary sprawdzający name length=0 ?
+def test_create_board_with_empty_name(boards_client):
     """
     Verifies that creating a board empty string as name
     returns status code 400
